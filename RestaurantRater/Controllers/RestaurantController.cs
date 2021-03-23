@@ -116,5 +116,19 @@ namespace RestaurantRater.Controllers
             }
             return View(restaurant);
         }
+
+        [ValidateAntiForgeryToken]
+
+        public ActionResult Details(Restaurant restaurant)
+        {
+            if (ModelState.IsValid)
+            {
+                _db.Entry(restaurant).State = System.Data.Entity.EntityState.Modified;
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(restaurant);
+        }
     }
 }
